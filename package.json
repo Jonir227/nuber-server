@@ -1,0 +1,44 @@
+{
+  "name": "nuber-server",
+  "version": "1.0.0",
+  "description": "우버 클론코딩 프로젝트의 백앤드입니다.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd src && nodemon --exec ts-node index.ts -e ts,graphql",
+    "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
+    "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jonir227/nuber-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jonir227/nuber-server/issues"
+  },
+  "homepage": "https://github.com/Jonir227/nuber-server#readme",
+  "devDependencies": {
+    "@types/node": "^10.7.1",
+    "gql-merge": "0.0.6",
+    "graphql-to-typescript": "^0.1.2",
+    "nodemon": "^1.18.3",
+    "ts-node": "^7.0.1",
+    "tslint-config-prettier": "^1.14.0",
+    "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "bcrypt-nodejs": "0.0.3",
+    "class-validator": "^0.9.1",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "graphql-tools": "^3.1.1",
+    "graphql-yoga": "^1.16.1",
+    "helmet": "^3.13.0",
+    "merge-graphql-schemas": "^1.5.3",
+    "morgan": "^1.9.0",
+    "pg": "^7.4.3",
+    "typeorm": "^0.2.7"
+  }
+}
