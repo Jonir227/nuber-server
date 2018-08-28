@@ -4,6 +4,7 @@
   "description": "우버 클론코딩 프로젝트의 백앤드입니다.",
   "main": "index.js",
   "scripts": {
+    "predev": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql && graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts",
     "dev": "cd src && nodemon --exec ts-node index.ts -e ts,graphql",
     "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
     "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts"
@@ -28,7 +29,9 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
+    "@types/bcrypt": "^2.0.0",
     "babel-runtime": "^6.26.0",
+    "bcrypt": "^3.0.0",
     "bcrypt-nodejs": "0.0.3",
     "class-validator": "^0.9.1",
     "cors": "^2.8.4",
