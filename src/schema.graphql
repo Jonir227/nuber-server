@@ -28,7 +28,11 @@ type Place {
 
 type Ride {
   id: Int!
+  # Ride Status
   status: String!
+  # Ride User Info
+  driver: User!
+  passenger: User!
   pickUpAddress: String!
   pickUpLat: Float!
   pickUpLng: Float!
@@ -42,6 +46,16 @@ type Ride {
   updatedAt: String!
 }
 
+type FacebookConnectResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type Mutation {
+  FacebookConnect(firstName: String!, lastName: String!, email: String, fbId: String!): FacebookConnectResponse!
+}
+
 type User {
   id: Int!
   # User Info
@@ -51,11 +65,14 @@ type User {
   lastName: String!
   age: Int
   password: String
+  fbId: String
   phoneNumber: String
   verifiedPhoneNumber: Boolean!
   profilePhoto: String
   fullName: String
   verifications: [Verification]
+  rideAsPassenger: [Ride]
+  rideAsDriver: [Ride]
   # Chat
   chat: Chat
   messages: [Message]
