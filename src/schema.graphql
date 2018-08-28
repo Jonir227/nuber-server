@@ -55,6 +55,7 @@ type User {
   verifiedPhoneNumber: Boolean!
   profilePhoto: String
   fullName: String
+  verifications: [Verification]
   # Chat
   chat: Chat
   messages: [Message]

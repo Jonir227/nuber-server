@@ -8,11 +8,14 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
 import Chat from "./Chat";
 import Message from "./Message";
+import Ride from "./Ride";
+import Verification from "./Verification";
 
 const BCRYPT_ROUNDS = 10;
 
@@ -21,39 +24,40 @@ class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  // User General Info
   @Column({ type: "text", unique: true })
   @IsEmail()
   email: string;
-
   @Column({ type: "boolean", default: false })
   verifiedEmail: boolean;
-
   @Column({ type: "text" })
   firstName: string;
-
   @Column({ type: "text" })
   lastName: string;
-
   @Column({ type: "int" })
   age: string;
-
   @Column({ type: "text" })
   password: string;
-
   @Column({ type: "text" })
   phoneNumber: string;
-
   @Column({ type: "boolean", default: false })
   verifiedPhoneNumber: string;
-
   @Column({ type: "text" })
   profilePhoto: string;
+  @OneToMany(type => Verification, verfication => verfication.user)
+  verifications: Verification[];
 
+  // Chat Info
   @ManyToOne(type => Chat, chat => chat.participants)
   chat: Chat;
-
   @ManyToOne(type => Message, message => message.user)
   messages: Message[];
+
+  // Drive Info
+  @OneToMany(type => Ride, ride => ride.passenger)
+  rideAsPassenger: Ride[];
+  @OneToMany(type => Ride, ride => ride.driver)
+  rideAsDriver: Ride[];
 
   @Column({ type: "boolean", default: false })
   isDriving: boolean;
@@ -63,7 +67,7 @@ class User extends BaseEntity {
   isTaken: boolean;
 
   @Column({ type: "double precision", default: 0 })
-  lastLngL: number;
+  lastLng: number;
   @Column({ type: "double precision", default: 0 })
   lastLat: number;
   @Column({ type: "double precision", default: 0 })

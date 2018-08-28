@@ -1,6 +1,12 @@
 type Ride {
   id: Int!
+  # Ride Status
   status: String!
+
+  #Ride User Info
+  driver: User!
+  passenger: User!
+
   pickUpAddress: String!
   pickUpLat: Float!
   pickUpLng: Float!

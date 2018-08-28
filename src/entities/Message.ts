@@ -16,14 +16,14 @@ class Message extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ type: "text" })
+  text: string;
+
   @ManyToOne(type => Chat, chat => chat.messages)
   chat: Chat;
 
   @ManyToOne(type => User, user => user.messages)
   user: User;
-
-  @Column({ type: "text" })
-  text: string;
 
   @CreateDateColumn()
   createdAt: string;

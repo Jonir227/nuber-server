@@ -1,13 +1,15 @@
 import {
-  Column,
-  Entity,
   BaseEntity,
-  PrimaryGeneratedColumn,
+  BeforeInsert,
+  Column,
   CreateDateColumn,
-  UpdateDateColumn,
-  BeforeInsert
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from "typeorm";
 import { VerificationTarget } from "../types/types";
+import User from "./User";
 
 const PHONE: string = "PHONE";
 const EMAIL: string = "EMAIL";
@@ -16,6 +18,9 @@ const EMAIL: string = "EMAIL";
 class Verification extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @ManyToOne(type => User, user => user.verifications)
+  user: User;
 
   @Column({ type: "text", enum: [EMAIL, PHONE] })
   target: VerificationTarget;
