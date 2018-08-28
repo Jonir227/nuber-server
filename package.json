@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Jonir227/nuber-server#readme",
   "devDependencies": {
     "@types/node": "^10.7.1",
+    "@types/bcrypt": "^2.0.0",
     "gql-merge": "0.0.6",
     "graphql-to-typescript": "^0.1.2",
     "nodemon": "^1.18.3",
@@ -29,7 +30,9 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "@types/bcrypt": "^2.0.0",
+    "@types/dotenv": "^4.0.3",
+    "@types/helmet": "0.0.39",
+    "@types/morgan": "^1.7.35",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^3.0.0",
     "bcrypt-nodejs": "0.0.3",
