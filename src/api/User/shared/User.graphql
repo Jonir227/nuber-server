@@ -12,7 +12,6 @@ type User {
   verifiedPhoneNumber: Boolean!
   profilePhoto: String
   fullName: String
-  verifications: [Verification]
   rideAsPassenger: [Ride]
   rideAsDriver: [Ride]
 

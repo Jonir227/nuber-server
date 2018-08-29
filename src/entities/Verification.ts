@@ -4,33 +4,25 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
-} from "typeorm";
-import { VerificationTarget } from "../types/types";
-import User from "./User";
-
-const PHONE: string = "PHONE";
-const EMAIL: string = "EMAIL";
+} from 'typeorm';
+import { VerificationTarget } from '../types/types';
 
 @Entity()
 class Verification extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(type => User, user => user.verifications)
-  user: User;
-
-  @Column({ type: "text", enum: [EMAIL, PHONE] })
+  @Column({ type: 'text', enum: ['EMAIL', 'PHONE'] })
   target: VerificationTarget;
-  @Column({ type: "text" })
+  @Column({ type: 'text' })
   payload: string;
-  @Column({ type: "text" })
+  @Column({ type: 'text' })
   key: string;
 
-  @Column({ type: "boolean", default: false })
-  used: boolean;
+  @Column({ type: 'boolean', default: false })
+  verified: boolean;
 
   @CreateDateColumn()
   createdAt: string;
@@ -39,9 +31,9 @@ class Verification extends BaseEntity {
 
   @BeforeInsert()
   createKey(): void {
-    if (this.target === PHONE) {
+    if (this.target === 'PHONE') {
       this.key = Math.floor(Math.random() * 100000).toString();
-    } else if (this.target === EMAIL) {
+    } else if (this.target === 'EMAIL') {
       // TODO: toString(36) ?
       this.key = Math.random()
         .toString(36)

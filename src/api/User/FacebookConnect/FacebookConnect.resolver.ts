@@ -4,51 +4,52 @@ import {
   FacebookConnectResponse
 } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolver';
+import createJWT from '../../../utils/createJWT';
+import proceedWithAuthError from '../../../utils/proceedWithAuthError';
 
 const resolvers: Resolvers = {
   Mutation: {
-    FacebookConnect: async (
+    FacebookConnect: (
       _,
       args: FacebookConnectMutationArgs
-    ): Promise<FacebookConnectResponse> => {
+    ): FacebookConnectResponse => {
       const { fbId } = args;
       // check user already sign in
       // then sign in User
-      try {
-        const existingUser = await User.findOne({ fbId });
-        if (existingUser) {
+      const checkUser = proceedWithAuthError(
+        async (): Promise<FacebookConnectResponse> => {
+          const existingUser = await User.findOne({ fbId });
+          if (!existingUser) {
+            throw new Error('User Not Exist');
+          }
+          const token = createJWT(existingUser.id);
           return {
             ok: true,
             error: null,
-            token: 'token'
+            token
           };
         }
-      } catch (err) {
-        return {
-          ok: false,
-          error: err.message,
-          token: null
-        };
+      );
+
+      if (checkUser) {
+        return checkUser;
       }
       // create User
-      try {
-        // do something
-        await User.create({
-          ...args,
-          profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`
-        }).save();
-        return {
-          ok: true,
-          error: null,
-          token: 'token'
-        };
-      } catch (error) {
-        return {
-          ok: false,
-          error: error.message,
-          token: null
-        };
-      }
+      return proceedWithAuthError(
+        async (): Promise<FacebookConnectResponse> => {
+          // do something
+          const user = await User.create({
+            ...args,
+            profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`
+          }).save();
+          const token = createJWT(user.id);
+          return {
+            ok: true,
+            error: null,
+            token
+          };
+        }
+      );
     }
   }
 };

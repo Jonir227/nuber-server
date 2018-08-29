@@ -15,7 +15,6 @@ import {
 import Chat from './Chat';
 import Message from './Message';
 import Ride from './Ride';
-import Verification from './Verification';
 
 const BCRYPT_ROUNDS = 10;
 
@@ -35,7 +34,7 @@ class User extends BaseEntity {
   @Column({ type: 'text' })
   lastName: string;
   @Column({ type: 'int', nullable: true })
-  age: string;
+  age: number;
   // 페이스북 로그인 시 비밀번호가 필요 없음 => null
   @Column({ type: 'text', nullable: true })
   password: string;
@@ -45,11 +44,9 @@ class User extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   phoneNumber: string;
   @Column({ type: 'boolean', default: false })
-  verifiedPhoneNumber: string;
+  verifiedPhoneNumber: boolean;
   @Column({ type: 'text' })
   profilePhoto: string;
-  @OneToMany(type => Verification, verfication => verfication.user)
-  verifications: Verification[];
 
   // Chat Info
   @ManyToOne(type => Chat, chat => chat.participants)
