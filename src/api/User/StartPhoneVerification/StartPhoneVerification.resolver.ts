@@ -8,7 +8,7 @@ import { sendVerificationSMS } from '../../../utils/sendSMS';
 
 const resolvers: Resolvers = {
   Mutation: {
-    StartPhoneVerifications: async (
+    StartPhoneVerification: async (
       _,
       args: StartPhoneVerificationMutationArgs
     ): Promise<StartPhoneVerificationResponse> => {
