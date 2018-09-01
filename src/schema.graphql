@@ -78,6 +78,17 @@ type FacebookConnectResponse {
   token: String
 }
 
+type GetMyProfileResponse {
+  ok: Boolean!
+  error: String
+  user: User
+}
+
+type Query {
+  GetMyProfile: GetMyProfileResponse!
+  user: User
+}
+
 type User {
   id: Int!
   # User Info
@@ -106,10 +117,6 @@ type User {
   lastOrientations: Float
   createdAt: String!
   updatedAt: String
-}
-
-type Query {
-  user: User
 }
 
 type StartPhoneVerificationResponse {

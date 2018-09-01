@@ -3,9 +3,9 @@ import jwt from 'jsonwebtoken';
 const createJWT = (id: number): string => {
   const token = jwt.sign(
     {
-      id
+      id,
     },
-    process.env.PASSWORD_JWT_KEY || ''
+    process.env.PASSWORD_JWT_KEY || '',
   );
   return token;
 };

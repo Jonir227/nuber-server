@@ -10,17 +10,17 @@
 - [x] Sign In with Email
 - [x] Start Phone Number Verification
 - [x] Complete Phone Number Verification
-- [ ] Sign Up with Email
+- [x] Sign Up with Email
 
 ### Authentication
 
-- [ ] Generate JWT
-- [ ] Verifiy JWT
+- [x] Generate JWT
+- [x] Verifiy JWT
 
 ### Private Resolvers
 
-- [ ] Verify Email
-- [ ] Get my Profile
+- [x] Verify Email
+- [x] Get my Profile
 - [ ] Update my Profile
 - [ ] Toggle Driving Mode
 - [ ] Report Location / Orientation

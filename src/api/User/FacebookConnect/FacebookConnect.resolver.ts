@@ -1,17 +1,20 @@
 import User from '../../../entities/User';
 import {
   FacebookConnectMutationArgs,
-  FacebookConnectResponse
+  FacebookConnectResponse,
 } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolver';
 import createJWT from '../../../utils/createJWT';
 import proceedWithAuthError from '../../../utils/proceedWithAuthError';
 
 const resolvers: Resolvers = {
+  Query: {
+    user: (parent, args, context) => {},
+  },
   Mutation: {
     FacebookConnect: (
       _,
-      args: FacebookConnectMutationArgs
+      args: FacebookConnectMutationArgs,
     ): FacebookConnectResponse => {
       const { fbId } = args;
       // check user already sign in
@@ -26,9 +29,9 @@ const resolvers: Resolvers = {
           return {
             ok: true,
             error: null,
-            token
+            token,
           };
-        }
+        },
       );
 
       if (checkUser) {
@@ -40,18 +43,18 @@ const resolvers: Resolvers = {
           // do something
           const user = await User.create({
             ...args,
-            profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`
+            profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`,
           }).save();
           const token = createJWT(user.id);
           return {
             ok: true,
             error: null,
-            token
+            token,
           };
-        }
+        },
       );
-    }
-  }
+    },
+  },
 };
 
 export default resolvers;
